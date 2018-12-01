@@ -1,0 +1,45 @@
+﻿<Window
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:DataViewer.Views"
+        xmlns:toolkit="http://schemas.xceed.com/wpf/xaml/toolkit"
+        xmlns:xcdg="http://schemas.xceed.com/wpf/xaml/datagrid" 
+        xmlns:Models="clr-namespace:DataModel.Models;assembly=DataModel" 
+        xmlns:ViewModels="clr-namespace:DataViewer.ViewModels" 
+        x:Class="DataViewer.Views.StartupWindow"
+        mc:Ignorable="d"
+        Title="StartupWindow" Height="450" Width="550">
+
+    <Grid>
+        <xcdg:DataGridControl  Name="PersonGrid" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top" Height="345" Width="480" IsEnabled="True" ItemsSource="{Binding PersonGrid}" >
+            <xcdg:DataGridControl.DataContext>
+                <ViewModels:Presenter/>
+            </xcdg:DataGridControl.DataContext>
+            <xcdg:DataGridControl.Columns>
+                <xcdg:Column FieldName="FirstName" Title="FirstName" AllowSort="True"/>
+                <xcdg:Column FieldName="LastName" Title="LastName" AllowSort="True"/>
+                <xcdg:Column FieldName="StreetName" Title="StreetName" AllowGroup="True" AllowSort="True"/>
+                <xcdg:Column FieldName="HouseNumber" Title="HouseNumber" AllowSort="True"/>
+                <xcdg:Column FieldName="ApartmentNumber" Title="ApartmentNumber" />
+                <xcdg:Column FieldName="PostalCode" Title="PostalCode" AllowGroup="True" AllowSort="True"/>
+                <xcdg:Column FieldName="PhoneNumber" Title="PhoneNumber" AllowSort="True"/>
+                <xcdg:Column FieldName="DayOfBirth" Title="DayOfBirth" AllowGroup="True" AllowSort="True"/>
+                <xcdg:Column FieldName="Age" Title="Age" ReadOnly="True" AllowGroup="True" AllowSort="True"/>
+                <xcdg:Column FieldName="Id" Title="Id" Visible="False"/>
+            </xcdg:DataGridControl.Columns>
+        </xcdg:DataGridControl>
+
+        <Button x:Name="Save" Content="Save" HorizontalAlignment="Left" Margin="10,365,0,0" VerticalAlignment="Top" Width="75" Command="{Binding SaveCommand}">
+            <Button.DataContext>
+                <ViewModels:Presenter/>
+            </Button.DataContext>
+        </Button>
+        <Button x:Name="Cancel" Content="Cancel" HorizontalAlignment="Left" Margin="90,365,0,0" VerticalAlignment="Top" Width="75" Command="{Binding CancelCommand}">
+            <Button.DataContext>
+                <ViewModels:Presenter/>
+            </Button.DataContext>
+        </Button>
+    </Grid>
+</Window>

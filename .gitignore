@@ -1,0 +1,10 @@
+bin/
+obj/
+*.suo
+*.pidb
+*.userprefs
+*.csproj.user
+*.DotSettings.user
+*.ReSharper.user
+
+_Resharper*
