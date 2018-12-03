@@ -1,12 +1,16 @@
 ﻿using AutoMapper;
 using DataModel.Models;
 using DataViewer.Bootstrappers;
-using DataViewer.Interfaces;
+using DataViewer.Models;
 using DataViewer.Profiles;
 using DataViewer.Services;
+using Infrastructure.Interfaces.DataViewer.Services;
+using KellermanSoftware.CompareNetObjects;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Collections.Specialized;
+using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -14,8 +18,10 @@ using System.Windows.Input;
 
 namespace DataViewer.ViewModels
 {
-    public class Presenter : ObservableObject
+    public class Presenter
     {
+        private ObservableCollection<PersonEntityBase> _personGrid = new ObservableCollection<PersonEntityBase>();
+        private IServiceModel _service = new ServiceModel();
 
         public Presenter()
         {
@@ -27,18 +33,7 @@ namespace DataViewer.ViewModels
             FillGrid();
         }
 
-        private void FillGrid()
-        {
-            _service.GetAllPersons().ForEach(item =>
-            {
-                _personGrid.Add(item);
-            });
-        }
-
-        private ObservableCollection<PersonEntity> _personGrid = new ObservableCollection<PersonEntity>();
-        private IServiceModel _service = new ServiceModel();
-
-        public ObservableCollection<PersonEntity> PersonGrid
+        public ObservableCollection<PersonEntityBase> PersonGrid
         {
             get
             {
@@ -46,7 +41,10 @@ namespace DataViewer.ViewModels
             }
             set
             {
-                _personGrid = value;
+                if (_personGrid != value)
+                {
+                    _personGrid = value;
+                }
             }
         }
 
@@ -69,14 +67,14 @@ namespace DataViewer.ViewModels
         private void SaveList()
         {
             var dbState = _service.GetAllPersons();
-            var grid = _personGrid.ToList();
+            var grid = PersonGrid.ToList();
 
             //Add
             grid.ForEach(item =>
             {
                 if (item.Id == 0)
                 {
-                    _service.AddPerson(item);
+                    _service.AddPerson(Mapper.Map<PersonEntity>(item));
                 }
             });
 
@@ -89,17 +87,26 @@ namespace DataViewer.ViewModels
                 }
             });
 
-            //Update - To Analyze!
+            //Update
+            var compareLogic = new CompareLogic();
             dbState.ToList().ForEach(item =>
             {
                 var result = grid.SingleOrDefault(s => s.Id == item.Id);
                 if (result != null)
                 {
-                    if (item != result)
+                    if (!compareLogic.Compare(item,result).AreEqual)
                     {
-                        _service.UpdatePerson(result);
+                        _service.UpdatePerson(Mapper.Map<PersonEntity>(result));
                     }
                 }
+            });
+        }
+
+        private void FillGrid()
+        {
+            _service.GetAllPersons().ForEach(item =>
+            {
+                _personGrid.Add(Mapper.Map<PersonEntityBase>(item));
             });
         }
     }

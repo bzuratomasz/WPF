@@ -83,6 +83,7 @@
     <Compile Include="Profiles\SupervisorServiceProfile.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Services\CollectionAnalyzerService.cs" />
     <Compile Include="Services\FileManagerService.cs" />
     <Compile Include="Contracts\SupervisorService.cs" />
   </ItemGroup>

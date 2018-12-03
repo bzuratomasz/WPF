@@ -1,5 +1,4 @@
-﻿using DataViewer.Interfaces;
-using log4net;
+﻿using log4net;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -12,6 +11,7 @@ using System.ServiceModel;
 using DataContract.ServiceContracts;
 using AutoMapper;
 using DataContract.DataContracts;
+using Infrastructure.Interfaces.DataViewer.Services;
 
 namespace DataViewer.Services
 {
@@ -85,20 +85,24 @@ namespace DataViewer.Services
         public bool UpdatePerson(PersonEntity person)
         {
             var result = false;
-            try
+
+            if (person.Id > 0)
             {
-                if (myChannelFactory != null)
+                try
                 {
-                    _dataManager = myChannelFactory.CreateChannel();
-                    result = _dataManager.UpdatePerson(Mapper.Map<PersonEntityDTO>(person));
-                    ((ICommunicationObject)_dataManager).Close();
+                    if (myChannelFactory != null)
+                    {
+                        _dataManager = myChannelFactory.CreateChannel();
+                        result = _dataManager.UpdatePerson(Mapper.Map<PersonEntityDTO>(person));
+                        ((ICommunicationObject)_dataManager).Close();
+                    }
                 }
-            }
-            catch
-            {
-                if (_dataManager != null)
+                catch
                 {
-                    ((ICommunicationObject)_dataManager).Abort();
+                    if (_dataManager != null)
+                    {
+                        ((ICommunicationObject)_dataManager).Abort();
+                    }
                 }
             }
 

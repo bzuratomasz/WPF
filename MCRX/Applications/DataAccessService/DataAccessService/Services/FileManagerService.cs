@@ -17,6 +17,12 @@ namespace DataAccessService.Services
     {
         private static readonly ILog Logger = LogManager.GetLogger(MethodBase.GetCurrentMethod().DeclaringType);
         private const string pathWithEnv = @"%USERPROFILE%\AppData\Local\DataAccessService\Database.xml";
+        private readonly ICollectionAnalyzerService _collectionAnalyzerService;
+
+        public FileManagerService(ICollectionAnalyzerService collectionAnalyzerService)
+        {
+            _collectionAnalyzerService = collectionAnalyzerService;
+        }
 
         public bool CreateXmlFileIfNotExists()
         {
@@ -151,6 +157,11 @@ namespace DataAccessService.Services
             return result;
         }
 
+        /// <summary>
+        /// Update Person method
+        /// </summary>
+        /// <param name="item"></param>
+        /// <returns></returns>
         public bool UpdatePerson(PersonEntity item)
         {
             var result = false;
@@ -160,7 +171,6 @@ namespace DataAccessService.Services
                 var filePath = Environment.ExpandEnvironmentVariables(pathWithEnv);
 
                 var tmpObject = new PersonsList();
-                tmpObject.PersonList = new List<PersonEntity>();
 
                 XmlSerializer serializer = new XmlSerializer(typeof(PersonsList));
                 FileStream file = File.Open(filePath, FileMode.Open);
@@ -168,14 +178,7 @@ namespace DataAccessService.Services
                 if (file.Length > 0)
                 {
                     PersonsList deserialized = (PersonsList)serializer.Deserialize(file);
-                    tmpObject.PersonList.AddRange(deserialized.PersonList);
-
-                    var objToDelete = tmpObject.PersonList.FirstOrDefault(s => s.Id == item.Id);
-                    if (objToDelete != null)
-                    {
-                        tmpObject.PersonList.Remove(objToDelete);
-                        tmpObject.PersonList.Add(item);
-                    }
+                    tmpObject = _collectionAnalyzerService.UpdatePersonLogic(item, deserialized);
                 }
 
                 file.SetLength(0);

@@ -15,7 +15,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DataModel", "..\..\Commons\
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "tests", "tests", "{C70AE949-608D-4B1B-968B-DDD1F1A083EB}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DataViewer", "tests\DataViewer\DataViewer.csproj", "{200CA071-921C-44B3-A5D2-35018B9B83FF}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DataViewerTests", "tests\DataViewer\DataViewerTests.csproj", "{200CA071-921C-44B3-A5D2-35018B9B83FF}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

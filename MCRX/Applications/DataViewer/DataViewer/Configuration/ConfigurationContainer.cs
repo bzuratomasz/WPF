@@ -1,4 +1,4 @@
-﻿using DataViewer.Configuration.Interfaces;
+﻿using Infrastructure.Interfaces.Configuration;
 using log4net;
 using System;
 using System.Collections.Generic;

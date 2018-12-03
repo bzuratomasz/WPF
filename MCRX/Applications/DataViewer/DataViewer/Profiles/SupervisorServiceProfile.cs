@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using DataContract.DataContracts;
 using DataModel.Models;
+using DataViewer.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -15,6 +16,9 @@ namespace DataViewer.Profiles
         {
             Mapper.CreateMap<PersonEntityDTO, PersonEntity>();
             Mapper.CreateMap<PersonEntity, PersonEntityDTO>();
+
+            Mapper.CreateMap<PersonEntityBase, PersonEntity>();
+            Mapper.CreateMap<PersonEntity, PersonEntityBase>();
         }
     }
 }

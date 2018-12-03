@@ -72,9 +72,14 @@
   </Choose>
   <ItemGroup>
     <Compile Include="DataAccessService\Services\FileManagerServiceTests.cs" />
+    <Compile Include="DataAccessService\Services\CollectionAnalyzerServiceTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\..\..\..\Commons\DataModel\DataModel.csproj">
+      <Project>{7DFD5071-4D37-4682-BDB7-71EC56FCE47C}</Project>
+      <Name>DataModel</Name>
+    </ProjectReference>
     <ProjectReference Include="..\..\..\..\Commons\Infrastructure\Infrastructure.csproj">
       <Project>{a23e16e1-c624-417e-9fda-9879e7f097b5}</Project>
       <Name>Infrastructure</Name>

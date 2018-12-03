@@ -46,6 +46,12 @@ namespace DataAccessService.Modules
                 .RegisterType<FileManagerService>()
                 .As<IFileManager>()
                 .SingleInstance();
+
+            builder
+                .RegisterType<CollectionAnalyzerService>()
+                .As<ICollectionAnalyzerService>()
+                .SingleInstance();
+            
         }
     }
 }

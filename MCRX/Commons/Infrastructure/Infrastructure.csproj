@@ -41,6 +41,8 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Interfaces\Configuration\IConfiguration.cs" />
+    <Compile Include="Interfaces\DataViewer\Services\IServiceModel.cs" />
+    <Compile Include="Interfaces\Services\ICollectionAnalyzerService.cs" />
     <Compile Include="Interfaces\Services\IFileManager.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

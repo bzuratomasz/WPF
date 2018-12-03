@@ -23,5 +23,16 @@ namespace DataViewer.Views
         {
             InitializeComponent();
         }
+
+        private void EnableButtons()
+        {
+            Save.IsEnabled = true;
+            Cancel.IsEnabled = true;
+        }
+
+        private void DataGrid_PreviewKeyUp(object sender, KeyEventArgs e)
+        {
+            EnableButtons();
+        }
     }
 }

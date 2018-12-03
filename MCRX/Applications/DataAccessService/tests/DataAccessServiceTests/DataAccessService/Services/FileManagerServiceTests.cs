@@ -9,6 +9,7 @@ namespace DataAccessServiceTests.DataAccessService.Services
     [TestClass]
     public class FileManagerServiceTests
     {
+
         [TestMethod]
         public void DeleteRow_BadId_ReturnFalse()
         {
