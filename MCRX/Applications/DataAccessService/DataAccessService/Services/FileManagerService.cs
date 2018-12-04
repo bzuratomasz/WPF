@@ -120,7 +120,10 @@ namespace DataAccessService.Services
             }
             catch (Exception ex)
             {
-                Logger.ErrorFormat("Error while [bool StoreData(PersonEntity item)]. Error: {0}", ex);
+                var errorString = string.Format("Error while [bool StoreData(PersonEntity item)].Error: {0}", ex);
+
+                Console.WriteLine(errorString);
+                Logger.ErrorFormat(errorString);
             }
 
             return result;
