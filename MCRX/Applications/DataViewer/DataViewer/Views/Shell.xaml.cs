@@ -15,24 +15,13 @@ using System.Windows.Shapes;
 namespace DataViewer.Views
 {
     /// <summary>
-    /// Interaction logic for Window.xaml
+    /// Interaction logic for Shell.xaml
     /// </summary>
-    public partial class StartupWindow : UserControl
+    public partial class Shell : Window
     {
-        public StartupWindow()
+        public Shell()
         {
             InitializeComponent();
-        }
-
-        private void EnableButtons()
-        {
-            Save.IsEnabled = true;
-            Cancel.IsEnabled = true;
-        }
-
-        private void DataGrid_PreviewKeyUp(object sender, KeyEventArgs e)
-        {
-            EnableButtons();
         }
     }
 }

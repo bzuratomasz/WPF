@@ -1,4 +1,7 @@
-﻿using System;
+﻿using AutoMapper;
+using DataViewer.Bootstrappers;
+using DataViewer.Profiles;
+using System;
 using System.Collections.Generic;
 using System.Configuration;
 using System.Data;
@@ -13,5 +16,16 @@ namespace DataViewer
     /// </summary>
     public partial class App : Application
     {
+        protected override void OnStartup(StartupEventArgs e)
+        {
+            Mapper.Initialize(cfg =>
+            {
+                cfg.AddProfile<SupervisorServiceProfile>();
+            });
+
+            base.OnStartup(e);
+            Bootstrapper bootstrapper = new Bootstrapper();
+            bootstrapper.Run();
+        }
     }
 }

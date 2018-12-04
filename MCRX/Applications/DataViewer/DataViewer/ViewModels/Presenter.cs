@@ -2,6 +2,7 @@
 using DataModel.Models;
 using DataViewer.Bootstrappers;
 using DataViewer.Models;
+using DataViewer.Modules;
 using DataViewer.Profiles;
 using DataViewer.Services;
 using Infrastructure.Interfaces.DataViewer.Services;
@@ -20,31 +21,17 @@ namespace DataViewer.ViewModels
 {
     public class Presenter
     {
-        private ObservableCollection<PersonEntityBase> _personGrid = new ObservableCollection<PersonEntityBase>();
-        private IServiceModel _service = new ServiceModel();
 
         public Presenter()
         {
-            Mapper.Initialize(cfg =>
-            {
-                cfg.AddProfile<SupervisorServiceProfile>();
-            });
 
-            FillGrid();
         }
 
         public ObservableCollection<PersonEntityBase> PersonGrid
         {
             get
             {
-                return _personGrid;
-            }
-            set
-            {
-                if (_personGrid != value)
-                {
-                    _personGrid = value;
-                }
+                return MainModule.PersonEntityBaseRepository.GetActualCollection();
             }
         }
 
@@ -60,54 +47,25 @@ namespace DataViewer.ViewModels
 
         private void CancelSaving()
         {
-            _personGrid.Clear();
-            FillGrid();
+            var result = MainModule.DbUpdaterService.GetDbValues();
+            PersonGrid.Clear();
+
+            result.ForEach(item => 
+            {
+                PersonGrid.Add(Mapper.Map<PersonEntityBase>(item));
+            });
         }
 
         private void SaveList()
         {
-            var dbState = _service.GetAllPersons();
-            var grid = PersonGrid.ToList();
+            var changes = new List<PersonEntity>();
 
-            //Add
-            grid.ForEach(item =>
+            PersonGrid.ToList().ForEach(item => 
             {
-                if (item.Id == 0)
-                {
-                    _service.AddPerson(Mapper.Map<PersonEntity>(item));
-                }
+                changes.Add(Mapper.Map<PersonEntity>(item));
             });
 
-            //Delete
-            dbState.ForEach(item =>
-            {
-                if (grid.Count(s => s.Id == item.Id) == 0)
-                {
-                    _service.DeletePerson(item.Id);
-                }
-            });
-
-            //Update
-            var compareLogic = new CompareLogic();
-            dbState.ToList().ForEach(item =>
-            {
-                var result = grid.SingleOrDefault(s => s.Id == item.Id);
-                if (result != null)
-                {
-                    if (!compareLogic.Compare(item,result).AreEqual)
-                    {
-                        _service.UpdatePerson(Mapper.Map<PersonEntity>(result));
-                    }
-                }
-            });
-        }
-
-        private void FillGrid()
-        {
-            _service.GetAllPersons().ForEach(item =>
-            {
-                _personGrid.Add(Mapper.Map<PersonEntityBase>(item));
-            });
+            MainModule.DbUpdaterService.DbUpdate(changes);
         }
     }
 }

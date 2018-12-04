@@ -41,6 +41,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Interfaces\Configuration\IConfiguration.cs" />
+    <Compile Include="Interfaces\DataViewer\Services\IDbUpdaterService.cs" />
     <Compile Include="Interfaces\DataViewer\Services\IServiceModel.cs" />
     <Compile Include="Interfaces\Services\ICollectionAnalyzerService.cs" />
     <Compile Include="Interfaces\Services\IFileManager.cs" />
@@ -52,6 +53,7 @@
       <Name>DataModel</Name>
     </ProjectReference>
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

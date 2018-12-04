@@ -1,4 +1,4 @@
-﻿<Window
+﻿<UserControl
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
@@ -7,11 +7,11 @@
         xmlns:Models="clr-namespace:DataModel.Models;assembly=DataModel" 
         xmlns:ViewModels="clr-namespace:DataViewer.ViewModels" 
         x:Class="DataViewer.Views.StartupWindow"
-        mc:Ignorable="d"
-        Title="StartupWindow" Height="450" Width="550">
+        mc:Ignorable="d">
 
-    <Grid>
-        <DataGrid ItemsSource="{Binding PersonGrid, Mode=TwoWay}"  AutoGenerateColumns="False" PreviewKeyUp="DataGrid_PreviewKeyUp" >
+    <Grid Height="500" Width="750">
+        
+        <DataGrid ItemsSource="{Binding PersonGrid}"  AutoGenerateColumns="False" PreviewKeyUp="DataGrid_PreviewKeyUp" >
             <DataGrid.DataContext>
                 <ViewModels:Presenter/>
             </DataGrid.DataContext>
@@ -38,5 +38,6 @@
                 <ViewModels:Presenter/>
             </Button.DataContext>
         </Button>
+
     </Grid>
-</Window>
+</UserControl>

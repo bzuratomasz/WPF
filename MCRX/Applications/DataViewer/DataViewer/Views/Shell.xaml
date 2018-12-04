@@ -1,0 +1,9 @@
+﻿<Window x:Class="DataViewer.Views.Shell"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:prsm="http://www.codeplex.com/prism"
+        Title="DataViewer - content" Height="475" Width="775">
+    <ItemsControl Name="MainRegion" prsm:RegionManager.RegionName="MainRegion" >
+
+    </ItemsControl>
+</Window>
